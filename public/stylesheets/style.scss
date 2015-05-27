@@ -1,0 +1,48 @@
+$lendable-main: #F5913A;
+$lendable-secondary: #CEE9F8;
+
+@import "compass/css3";
+@import "slider";
+@import '../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+
+body {
+  background-color: #ECEEEF;
+  padding: 50px;
+  font: 14px;
+  font-family: "Source Sans Pro", "trebuchet ms", arial, sans-serif;
+}
+
+a {
+  color: darken($lendable-secondary, 25%);
+}
+
+h1 {
+  color: #000;
+}
+
+h2 {
+  color: $lendable-main;
+}
+
+.quote-container {
+  max-width: 800px;
+  padding: 30px;
+  @include box-shadow(rgba(0, 0, 0, 0.3) 0 0 8px);
+  background-color: #FFF;
+  border: 3px solid $lendable-secondary;
+  border-radius: 5px;
+}
+
+.quote-alter-buttons {
+  margin-top: 25px;
+}
+
+.quote-summary {
+  margin-top: 20px;
+  text-align:  center;
+}
+
+.quote-update-btn {
+  background-color: darken($lendable-secondary, 20%) !important;
+  color: #FFF !important;
+}

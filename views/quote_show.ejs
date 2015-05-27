@@ -1,0 +1,67 @@
+<%- include partials/header.ejs %>
+<script type="text/javascript">angular.module('MyLoans').constant('LoanData', <%- JSON.stringify(quote) %>);</script>
+<div class="container quote-container" ng-controller="LoanController as loanCtrl">
+  <h1>Personalised quote <i>for</i> {{ ::loanCtrl.data.customer.name }} </h1>
+
+  <p>If you accept this quote, your loan will be for <b>&pound;{{ loanCtrl.data.loan.amount }}</b> 
+  + &pound;{{ loanCtrl.data.loan.fee }}, the fee we charge for our service (The fee is added to the loan, not paid upfront).</p>
+  <p>Repayments will be <b>&pound;{{ loanCtrl.data.loan.monthlyRepayment }}</b> for
+  <b>{{ loanCtrl.data.loan.term }} months.</b> You can repay early with no penalties, 
+  and you will pay less interest.</p>
+
+  <hr/>
+
+  <h2>About your loan</h2>
+
+  <div class="row">
+    <p class="col-xs-12">If you would like to change the amount or term of the quote you can do so here:</p>
+    <div class="col-sm-5">
+      <h3>Length: {{ loanCtrl.termInYears }} years </h3>
+      <input id="loan-term" ng-change="loanCtrl.ontermChanges()"
+      value="<%- quote.loan.term %>" 
+      ng-model="loanCtrl.tempTerm" 
+      type="range" min="12" max="60" step="6">
+    </div>
+    <div class="col-sm-5 
+      col-sm-offset-2">
+      <h3>Amount: &pound;{{ loanCtrl.tempAmount }} </h3>
+      <input id="loan-amount" ng-change="loanCtrl.ontermChanges()"
+      value="<%- quote.loan.amount %>" 
+      ng-model="loanCtrl.tempAmount" 
+      type="range" min="1000" max="7500" step="500">
+    </div>
+  </div>
+  <div ng-show="loanCtrl.termsChanged" class="row quote-alter-buttons">
+    <div class="col-xs-12">
+      <button class="btn" ng-click="loanCtrl.resetQuote()">Reset</button>
+      <button class="btn quote-update-btn" ng-click="loanCtrl.updateQuote()">Update quote terms</button>
+    </div>
+  </div>
+  </br>
+  <div ng-show="loanCtrl.quoteUpdated" class="alert alert-success">
+    Quote updated, please review the new terms.
+  </div>
+  <div class="row" ng-class="{'text-muted': loanCtrl.termsChanged == true}">
+      <div class="col-sm-5">
+        <h3>Monthly payment: &pound;{{ loanCtrl.data.loan.monthlyRepayment }}</h3>
+      </div>
+      <div class="col-sm-5 
+        col-sm-offset-2  
+        quote-summary">
+        <p>Total to repay: &pound;{{ loanCtrl.totalRepayment }}</p>
+        <p>APR (includes fee): {{ loanCtrl.data.loan.apr }}%</p>
+      </div>
+  </div>
+
+  <hr/>
+  <h2>Your loan documents</h2>
+  <div class="row">
+    <div class="col-xs-12">
+      <p>We'll also email you these for your reference and peace of mind.</p>
+      <p><a href="#">Loan agreement</a></p>
+      <p><a href="#">Standard EU Consumer Credit Information</a></p>
+    </div>
+  </div>
+</div> 
+
+<%- include partials/footer.ejs %>
